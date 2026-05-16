@@ -14,34 +14,4 @@ public class NodoAVLK {
         this.rchild = null;
     }
 
-    private int getAltura(NodoAVLK nodo){
-        if (nodo == null){
-            return 0;
-        }else{
-            return nodo.altura;
-        }
-    }
-    private int getPeso(NodoAVLK nodo){
-        if (nodo == null){
-            return 0;
-        }else {
-            return nodo.peso;
-        }
-    }
-
-    private void updateNodo(NodoAVLK nodo){
-        if (nodo!=null){
-            nodo.altura = Math.max(getAltura(nodo.lchild),getAltura(nodo.rchild)) + 1;
-            nodo.peso = getPeso(nodo.lchild) + getPeso(nodo.rchild) + 1;
-        }
-    }
-
-    private int getBalance(NodoAVLK nodo){
-        if (nodo == null){
-            return 0;
-        }else {
-            return (getAltura(nodo.lchild) - getAltura(nodo.rchild));
-        }
-    }
-     //AGregar funciones de rotar
 }
