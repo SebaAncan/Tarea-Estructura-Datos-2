@@ -17,6 +17,20 @@ class AVLK{
         return 0;
     }
 
+    private int i_esimoAux(NodoAVLK nodo, int i){
+        if (nodo == null){
+            System.out.println("Fuera de rango");
+        }
+        int pesoIzq = getPeso(nodo.lchild);
+        if (i == pesoIzq + 1){
+            return nodo.clave;
+        }else if (i <= pesoIzq){
+            return i_esimoAux(nodo.lchild , i);
+        } else {
+            return i_esimoAux(nodo.rchild,i);
+        }
+    }
+
 
     private NodoAVLK insertarAux(NodoAVLK nodo,int clave){
         if (nodo == null){
@@ -70,4 +84,7 @@ class AVLK{
     private NodoAVLK rotoIzq(NodoAVLK nodo){
         return null;
     }
+
+
+
 }
