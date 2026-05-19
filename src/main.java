@@ -51,6 +51,7 @@ public class main {
                 case 6:
                     System.out.println("Cargando elementos");
                     System.out.println("Elementos a insertar: 8,6,10,2,3,4,7,20,17");
+                    arbol = new AVLK(); //Reseteamos por que el programa se intento suicidar si lo ejecutaba dos veces
                     arbol.insertar(8);
                     arbol.insertar(6);
                     arbol.insertar(10);
@@ -75,11 +76,21 @@ public class main {
 
     }
 
+    //movi el imprimir mejor a aVLK
+
     public static void imprimirArbol(AVLK arbol) {
-        int total = arbol.getTam();
+        System.out.println("Imprimiendo Arbol:");
+        if (arbol.getTam() == 0){
+            System.out.println("Esta vacio");
+            return;
+        }
+        arbol.imprimirDetalle();
+        /*int total = arbol.getTam();
         for (int i = 1 ; i<=total;i++){
             System.out.println(arbol.i_esimo(i) + " ");
         }
+        se me ocurrio mejorarlo por que se imprimia feo
+         */
         /*
         taba malo gerardo
         int contador =1;
@@ -91,7 +102,6 @@ public class main {
         }
 
          */
-
     }
 }
 

@@ -1,5 +1,15 @@
 Sebastian Ancan , Gerardo Guíñez
 
+como ejecutar:
+    abrir el proyecto con IntellIdea y ejecutarlo
+
+    O
+
+       abrir la pagina web https://www.onlinegdb.com/online_java_compiler
+       subir los archivos en ella y ejecutar el Main
+       (y borrar la clase main que viene pre-hecha por la pagina)
+
+
 Instrucciones de Uso:
     Insertar: Añade una clave al arbol, se balanceara de forma automatica con los giros correspondientes
     Eliminar : Quita una clave del arbol, se balancea igual que en insertar

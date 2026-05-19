@@ -6,6 +6,8 @@ public class AVLK {
     public void insertar(int clave) { raiz = insertarRec(raiz, clave); }
 
     private NodoAVLK insertarRec(NodoAVLK nodo, int clave) {
+        //Te juro que esto no deja de romperse XD
+
         if (nodo == null) {
             return new NodoAVLK(clave);
         }
@@ -21,19 +23,23 @@ public class AVLK {
         int balance = getBalance(nodo);
 
         // Caso Izq Izq
-        if (balance > 1 && clave < nodo.lchild.clave) return rotoDerecha(nodo);
+        if (balance > 1 && getBalance(nodo.lchild) >= 0) {
+            return rotoDerecha(nodo);
+        }
 
-        // Caso Der Der
-        if (balance < -1 && clave > nodo.rchild.clave) return rotoIzq(nodo);
-
-        // Caso Izq Der
-        if (balance > 1 && clave > nodo.lchild.clave) {
+         // izq der
+        if (balance > 1 && getBalance(nodo.lchild) < 0) {
             nodo.lchild = rotoIzq(nodo.lchild);
             return rotoDerecha(nodo);
         }
 
-        // Caso Der Izq
-        if (balance < -1 && clave < nodo.rchild.clave) {
+        // der der
+        if (balance < -1 && getBalance(nodo.rchild) <= 0) {
+            return rotoIzq(nodo);
+        }
+
+        // der izq
+        if (balance < -1 && getBalance(nodo.rchild) > 0) {
             nodo.rchild = rotoDerecha(nodo.rchild);
             return rotoIzq(nodo);
         }
@@ -149,7 +155,7 @@ public class AVLK {
         if (nodo == null){
             return 0;
         }
-        return (getAltura(nodo.lchild) - getAltura(raiz.rchild));
+        return (getAltura(nodo.lchild) - getAltura(nodo.rchild));
 
     }
 
@@ -185,5 +191,32 @@ public class AVLK {
             return 0;
         }
         return raiz.peso;
+    }
+
+    public void imprimirDetalle(){
+        imprimirMejor(raiz);
+    }
+    private static void imprimirMejor(NodoAVLK nodo){
+
+        if (nodo != null){
+            //no se me ocurre como imprimir la raiz sin ROMPER TODO TODILLO
+            String claveIzq;
+            String claveDer;
+            if (nodo.lchild != null){
+                claveIzq = String.valueOf(nodo.lchild.clave);
+            }else {
+                claveIzq = "Null";
+            }
+            if (nodo.rchild != null){
+                claveDer = String.valueOf(nodo.rchild.clave);
+            }else {
+                claveDer = "Null";
+            }
+
+            System.out.println("Clave " + nodo.clave);
+            System.out.println("hijo izquierdo :" + claveIzq + " hijo Derecho : " + claveDer);
+            imprimirMejor(nodo.lchild);
+            imprimirMejor(nodo.rchild);
+        }
     }
 }
