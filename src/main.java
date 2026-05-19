@@ -20,9 +20,16 @@ public class main {
         imprimirArbol(arbol);
 
         /// ///////////////////////////////////////////////////////////
-        System.out.println("Método Buscar: ");
+        System.out.println("\nMétodo eliminar: ");
+        arbol.eliminar(7);
+
+        System.out.println("Árbol después de eliminar");
+        imprimirArbol(arbol);
+
+        /// ///////////////////////////////////////////////////////////
+        System.out.println("\nMétodo Buscar: ");
         System.out.println("¿Existe la clave 2? " + arbol.buscar(2));
-        System.out.println("¿Existe la clave 11? " + arbol.buscar(11));
+        System.out.println("¿Existe la clave 7? " + arbol.buscar(7));//comprobando el método eliminar
 
         /// ///////////////////////////////////////////////////////////
         System.out.println("\nMétodo i-ésimo menor: ");
@@ -32,7 +39,7 @@ public class main {
         System.out.println("11avo menor: " + arbol.i_esimo(11));
 
         /// ///////////////////////////////////////////////////////////
-        System.out.println("Método rotación");
+        System.out.println("\nMétodo rotación");
         //al insertar el 1, esto desbalancea el arbol
         System.out.println("Insertar 1");
         arbol.insertar(1);
@@ -49,14 +56,13 @@ public class main {
 
     public static void imprimirArbol(AVLK arbol) {
         int contador =1;
-        while(true){
-            int clave = arbol.i_esimo(contador);
-            if(clave == -1) break;
-
-            System.out.println(clave);
+        int clave = arbol.i_esimo(contador);
+        while(clave != -1){
+            System.out.println(clave + " ");
             contador++;
+            clave = arbol.i_esimo(contador);
         }
-        System.out.println();
+
     }
 }
 
