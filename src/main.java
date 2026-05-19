@@ -80,7 +80,9 @@ public class main {
         for (int i = 1 ; i<=total;i++){
             System.out.println(arbol.i_esimo(i) + " ");
         }
-        /*int contador =1;
+        /*
+        taba malo gerardo
+        int contador =1;
         int clave = arbol.i_esimo(contador);
         while(clave != -1){
             System.out.println(clave + " ");
@@ -90,10 +92,6 @@ public class main {
 
          */
 
-    }
-
-    public void datoPrueba(){
-        return;
     }
 }
 

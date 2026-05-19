@@ -1,11 +1,12 @@
-class AVLK{
+public class AVLK {
     private NodoAVLK raiz;
-    AVLK(){ raiz = null;}
+
+    public AVLK() { raiz = null; }
 
     public void insertar(int clave) { raiz = insertarRec(raiz, clave); }
 
-    private NodoAVLK insertarRec(NodoAVLK nodo,int clave){
-        if (nodo == null){
+    private NodoAVLK insertarRec(NodoAVLK nodo, int clave) {
+        if (nodo == null) {
             return new NodoAVLK(clave);
         }
         if (clave < nodo.clave) {
@@ -15,24 +16,24 @@ class AVLK{
         } else {
             return nodo;
         }
-        updateNodo(nodo);
 
+        updateNodo(nodo);
         int balance = getBalance(nodo);
 
-        //Caso Izq-Izq
-        if(balance > 1 && clave < nodo.lchild.clave) return rotoDerecha(nodo);
+        // Caso Izq Izq
+        if (balance > 1 && clave < nodo.lchild.clave) return rotoDerecha(nodo);
 
-        //Caso Der-Der
-        if(balance < -1 && clave > nodo.rchild.clave) return rotoIzq(nodo);
+        // Caso Der Der
+        if (balance < -1 && clave > nodo.rchild.clave) return rotoIzq(nodo);
 
-        //Caso Izq-Der
-        if(balance > 1 && clave > nodo.lchild.clave){
-            nodo.lchild = rotoIzq(nodo.lchild) ;
+        // Caso Izq Der
+        if (balance > 1 && clave > nodo.lchild.clave) {
+            nodo.lchild = rotoIzq(nodo.lchild);
             return rotoDerecha(nodo);
         }
 
-        //Caso Der-Izq
-        if(balance < -1 && clave < nodo.rchild.clave){
+        // Caso Der Izq
+        if (balance < -1 && clave < nodo.rchild.clave) {
             nodo.rchild = rotoDerecha(nodo.rchild);
             return rotoIzq(nodo);
         }
@@ -42,37 +43,33 @@ class AVLK{
 
     public void eliminar(int clave) { raiz = eliminarRec(raiz, clave); }
 
-    private NodoAVLK eliminarRec(NodoAVLK nodo, int clave){
-        if(nodo == null) return null;
+    private NodoAVLK eliminarRec(NodoAVLK nodo, int clave) {
+        if (nodo == null) return null;
 
-        if(clave < nodo.clave){
-            //revisa por el lado izquierdo
+        if (clave < nodo.clave) {
             nodo.lchild = eliminarRec(nodo.lchild, clave);
         } else if (clave > nodo.clave) {
-            //revisa por el lado derecho
             nodo.rchild = eliminarRec(nodo.rchild, clave);
-        } else{
-            //cuando es encontrado
-            if(nodo.lchild == null || nodo.rchild == null){
-                //caso 0 o 1 hijo
+        } else {
+            // Nodo encontrado
+            if (nodo.lchild == null || nodo.rchild == null) {
+                // Caso 0 o 1 hijo
+                NodoAVLK temp = (nodo.lchild != null) ? nodo.lchild : nodo.rchild;
 
-                NodoAVLK temp;
-                if(nodo.lchild != null){
-                    temp = nodo.lchild;
+                if (temp == null) {
+                    return null; // Si era hoja, se desconecta
                 } else {
-                    temp = nodo.rchild;
+                    nodo = temp; // Si tenía un hijo, toma su lugar y se balancea
                 }
-
-                nodo = temp;
             } else {
-                //caso 2 hijos
-
+                // Caso 2 hijos
                 NodoAVLK temp = buscaMayorIzq(nodo.lchild);
                 nodo.clave = temp.clave;
                 nodo.lchild = eliminarRec(nodo.lchild, temp.clave);
             }
         }
-        if(nodo == null) return null;
+
+        if (nodo == null) return null;
 
         updateNodo(nodo);
         int balance = getBalance(nodo);
@@ -94,77 +91,74 @@ class AVLK{
 
     public boolean buscar(int k) { return buscarRec(raiz, k); }
 
-    private boolean buscarRec(NodoAVLK nodo, int k){
-        if(nodo == null) return false;
+    private boolean buscarRec(NodoAVLK nodo, int k) {
+        if (nodo == null) return false;
+        if (k == nodo.clave) return true;
 
-        if(k == nodo.clave) return true;
-
-        if(k < nodo.clave){
+        if (k < nodo.clave) {
             return buscarRec(nodo.lchild, k);
         } else {
             return buscarRec(nodo.rchild, k);
         }
     }
 
-    public int i_esimo(int i){
+    public int i_esimo(int i) {
         return i_esimoRec(raiz, i);
     }
 
-    private int i_esimoRec(NodoAVLK nodo, int i){
-        if (nodo == null){
+    private int i_esimoRec(NodoAVLK nodo, int i) {
+        if (nodo == null) {
             System.out.println("Fuera de rango");
             return -1;
         }
         int pesoIzq = getPeso(nodo.lchild);
-        if (i == pesoIzq + 1){
+        if (i == pesoIzq + 1) {
             return nodo.clave;
-        }else if (i <= pesoIzq){
-            return i_esimoRec(nodo.lchild , i);
+        } else if (i <= pesoIzq) {
+            return i_esimoRec(nodo.lchild, i);
         } else {
             return i_esimoRec(nodo.rchild, i - (pesoIzq + 1));
         }
     }
 
-    //Métodos privados varios
-    private int getAltura(NodoAVLK nodo){
+    // Métodos auxiliares
+    private int getAltura(NodoAVLK nodo) {
+
         if (nodo == null){
             return 0;
-        }else{
-            return nodo.altura;
         }
-    }
-    private int getPeso(NodoAVLK nodo){
-        if (nodo == null){
-            return 0;
-        }else {
-            return nodo.peso;
-        }
+        return nodo.altura;
     }
 
-    private void updateNodo(NodoAVLK nodo){
-        if (nodo!=null){
-            nodo.altura = Math.max(getAltura(nodo.lchild),getAltura(nodo.rchild)) + 1;
+    private int getPeso(NodoAVLK nodo) {
+        if (nodo == null){
+            return 0;
+        }
+        return nodo.peso;
+    }
+
+    private void updateNodo(NodoAVLK nodo) {
+        if (nodo != null) {
+            nodo.altura = Math.max(getAltura(nodo.lchild), getAltura(nodo.rchild)) + 1;
             nodo.peso = getPeso(nodo.lchild) + getPeso(nodo.rchild) + 1;
-            nodo.balan = (short) (getAltura (nodo.lchild) - getAltura(nodo.rchild));
+            nodo.balan = (short) (getAltura(nodo.lchild) - getAltura(nodo.rchild));
         }
     }
 
-    private int getBalance(NodoAVLK nodo){
+    private int getBalance(NodoAVLK nodo) {
         if (nodo == null){
             return 0;
-        }else {
-            return (getAltura(nodo.lchild) - getAltura(nodo.rchild));
         }
+        return (getAltura(nodo.lchild) - getAltura(raiz.rchild));
+
     }
 
-    private NodoAVLK buscaMayorIzq(NodoAVLK nodo){//usado en el método eliminarRec
-        if(nodo.rchild == null) return nodo;
-
+    private NodoAVLK buscaMayorIzq(NodoAVLK nodo) {
+        if (nodo.rchild == null) return nodo;
         return buscaMayorIzq(nodo.rchild);
     }
 
-    private NodoAVLK rotoDerecha(NodoAVLK nodo){
-        //implementado a partir de lo visto en clases
+    private NodoAVLK rotoDerecha(NodoAVLK nodo) {
         NodoAVLK temp = nodo.lchild;
         nodo.lchild = temp.rchild;
         temp.rchild = nodo;
@@ -175,8 +169,7 @@ class AVLK{
         return temp;
     }
 
-    private NodoAVLK rotoIzq(NodoAVLK nodo){
-        //implementado a partir de lo visto en clases
+    private NodoAVLK rotoIzq(NodoAVLK nodo) {
         NodoAVLK temp = nodo.rchild;
         nodo.rchild = temp.lchild;
         temp.lchild = nodo;
@@ -185,5 +178,12 @@ class AVLK{
         updateNodo(temp);
 
         return temp;
+    }
+
+    public int getTam() {
+        if (raiz== null){
+            return 0;
+        }
+        return raiz.peso;
     }
 }
