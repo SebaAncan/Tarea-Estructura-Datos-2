@@ -27,7 +27,7 @@ class AVLK{
 
         //Caso Izq-Der
         if(balance > 1 && clave > nodo.lchild.clave){
-            nodo.rchild = rotoDerecha(nodo.lchild) ;
+            nodo.lchild = rotoIzq(nodo.lchild) ;
             return rotoDerecha(nodo);
         }
 
@@ -67,7 +67,7 @@ class AVLK{
             } else {
                 //caso 2 hijos
 
-                NodoAVLK temp = buscaMayorIzq(nodo.rchild);
+                NodoAVLK temp = buscaMayorIzq(nodo.lchild);
                 nodo.clave = temp.clave;
                 nodo.lchild = eliminarRec(nodo.lchild, temp.clave);
             }
@@ -121,7 +121,7 @@ class AVLK{
         }else if (i <= pesoIzq){
             return i_esimoRec(nodo.lchild , i);
         } else {
-            return i_esimoRec(nodo.rchild, i);
+            return i_esimoRec(nodo.rchild, i - (pesoIzq + 1));
         }
     }
 
@@ -145,6 +145,7 @@ class AVLK{
         if (nodo!=null){
             nodo.altura = Math.max(getAltura(nodo.lchild),getAltura(nodo.rchild)) + 1;
             nodo.peso = getPeso(nodo.lchild) + getPeso(nodo.rchild) + 1;
+            nodo.balan = (short) (getAltura (nodo.lchild) - getAltura(nodo.rchild));
         }
     }
 
