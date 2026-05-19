@@ -6,6 +6,7 @@ public class NodoAVLK {
     NodoAVLK lchild;
     short balan;
     NodoAVLK rchild;
+
     NodoAVLK(int clave){
         this.clave = clave;
         this.peso = 1;   // peso 1 para las hojas recien creadas
@@ -13,5 +14,4 @@ public class NodoAVLK {
         this.lchild = null;
         this.rchild = null;
     }
-
 }
