@@ -1,0 +1,10 @@
+Sebastian Ancan , Gerardo Guíñez
+
+Instrucciones de Uso:
+    Insertar: Añade una clave al arbol, se balanceara de forma automatica con los giros correspondientes
+    Eliminar : Quita una clave del arbol, se balancea igual que en insertar
+    Imprimir arbol : Hace lo que dice, imprime el estado actual del arbol
+    buscar: Busca en el arbol si existe x elemento
+    i-esimo menor : pide un indice i y retorna el elemento sin recorrer el arbol completo
+    cargar datos de prueba: Dice lo que hace, hace un arbol pre-hecho para no necesitar insertar manualmente
+
