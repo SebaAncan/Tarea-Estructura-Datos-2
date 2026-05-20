@@ -26,8 +26,12 @@ public class main {
                 case 2:
                     System.out.println("inserte clave");
                     clave = tcld.nextInt();
-                    arbol.eliminar(clave);
-                    System.out.println("Clave " + clave + " procesada en eliminación.");
+                    if (arbol.buscar(clave)){
+                        arbol.eliminar(clave);
+                        System.out.println("Clave " + clave + " eliminada");
+                    }else {
+                        System.out.println("clave no existe");
+                    }
                     break;
                 case 3:
                     imprimirArbol(arbol);
